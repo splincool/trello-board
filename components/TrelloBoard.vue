@@ -77,6 +77,7 @@ const alt = useKeyModifier("Alt");
                         <DragHandle />
                         {{ column.title }}
                     </header>
+
                     <draggable
                         v-model="column.tasks"
                         :group="{ name: 'tasks', pull: alt ? 'clone' : true }"
@@ -89,8 +90,9 @@ const alt = useKeyModifier("Alt");
                             </div>
                         </template>
                     </draggable>
+
                     <footer>
-                        <button class="text-gray-500">+ Add a card</button>
+                        <NewTask @add="column.tasks.push($event)"/>
                     </footer>
                 </div>
             </template>
