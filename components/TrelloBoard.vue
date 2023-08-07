@@ -59,6 +59,10 @@ const columns = ref<Column[]>([
 ]);
 
 const alt = useKeyModifier("Alt");
+
+function addNewTask(task: Task, column: Column): void {
+    column.tasks.push(task);
+}
 </script>
 
 <template>
@@ -92,7 +96,8 @@ const alt = useKeyModifier("Alt");
                     </draggable>
 
                     <footer>
-                        <NewTask @add="column.tasks.push($event)"/>
+                        <!-- <NewTask @add="column.tasks.push($event)"/> -->
+                        <NewTask @add="addNewTask($event, column)"/>
                     </footer>
                 </div>
             </template>
