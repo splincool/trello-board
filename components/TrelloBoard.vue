@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Column, Task } from '@/types';
+import { Column, Task, ID } from '@/types';
 import { nanoid } from 'nanoid';
 import draggable from 'vuedraggable';
 
@@ -63,6 +63,10 @@ const alt = useKeyModifier("Alt");
 function addNewTask(task: Task, column: Column): void {
     column.tasks.push(task);
 }
+
+function deleteTask(taskId: ID, column: Column): void {
+    column.tasks = column.tasks.filter((task) => task.id !== taskId);
+}
 </script>
 
 <template>
@@ -90,14 +94,16 @@ function addNewTask(task: Task, column: Column): void {
                     >
                         <template #item="{ element: task } : {element: Task}">
                             <div>
-                                <TrelloBoardTask :task="task" />
+                                <TrelloBoardTask
+                                    :task="task"
+                                    @delete="deleteTask($event, column)"
+                                />
                             </div>
                         </template>
                     </draggable>
 
                     <footer>
-                        <!-- <NewTask @add="column.tasks.push($event)"/> -->
-                        <NewTask @add="addNewTask($event, column)"/>
+                        <NewTask @add="addNewTask($event, column)" />
                     </footer>
                 </div>
             </template>
