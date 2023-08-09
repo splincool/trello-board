@@ -19,11 +19,13 @@ onKeyStroke("Backspace", (e) => {
         emit("delete", props.task.id)
     }
 })
+
+const title = computed(() => props.task.createdAt.toLocaleString())    
 </script>
 
 <template>
     <div 
-        :title="task.createdAt.toLocaleString()"
+        :title="title"
         class="task bg-white p-2 mb-2 rounded shadow-sm max-w-[250px] flex"
         @focus="setFocused(true)"
         @blur="setFocused(false)"
